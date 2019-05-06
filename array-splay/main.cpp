@@ -394,7 +394,8 @@ int main(int argc, char** argv) {
         cout << "       3.  Buscar" << endl;
         cout << "       4.  Graficar Arbol Splay" << endl;
         cout << "       5.  Graficar Arreglo" << endl;
-        cout << "       6.  Salir" << endl;
+        cout << "       6.  Grafica Juntos" << endl;
+        cout << "       7.  Salir" << endl;
         cout << "                  INGRESE LA OPCION DESEADA " << endl;
         cin >> opcion;
         switch(opcion){
@@ -443,8 +444,28 @@ int main(int argc, char** argv) {
             system("dot -Tpng ./Graphviz/arr.dot -o ./Graphviz/arr.png");
             
                 break;
-            //salir
+            //grafica juntos
             case 6:
+                wf.open("./Graphviz/juntos.dot");
+                wf << "digraph g{" << endl;
+                wf << "compound=true; \n nodesep=2.5;\n subgraph clusterA {" << endl;
+                wf << " label=\"Arreglo de Entrada\";" << endl;
+                wf << "edge [color = lightblue, splines = ortho];\n";
+                wf << "node [shape = record, style = filled, fillcolor=lavender, height = .1];\n";
+                for(j = 0; j < tamanoarreglo; j++){
+                    wf << "a" << j << "[label = \""<< vector[j] << "\"];" << endl;
+                    if(j != (tamanoarreglo - 1)){
+                        wf << "a" << j << "-> a" << j+1 << ";" << endl;
+                    }
+                }
+                wf << "}\n subgraph clusterB {\n label=\"Arbol SPL\"; edge [color = blue, splines = ortho];\nnode [shape = record, color=gold, height = .1];\n";
+                wf << as.nodoarbol(raiz) << endl;
+                wf << "}\n a0 -> n" << as.buscar(raiz->clave, raiz)->clave << " [lhead=clusterA, lhead=clusterB];\n }\n" << endl;
+                wf.close();
+                system("dot -Tpng ./Graphviz/juntos.dot -o ./Graphviz/juntos.png");
+                break;
+            //salir
+            case 7:
                 exit(1);
             default:
                 cout << "           OPCION INVALIDA :c " << endl;

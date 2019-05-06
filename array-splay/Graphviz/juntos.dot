@@ -1,0 +1,62 @@
+digraph g{
+compound=true; 
+ nodesep=2.5;
+ subgraph clusterA {
+ label="Arreglo de Entrada";
+edge [color = lightblue, splines = ortho];
+node [shape = record, style = filled, fillcolor=lavender, height = .1];
+a0[label = "5"];
+a0-> a1;
+a1[label = "10"];
+a1-> a2;
+a2[label = "96"];
+a2-> a3;
+a3[label = "30"];
+a3-> a4;
+a4[label = "2"];
+a4-> a5;
+a5[label = "63"];
+a5-> a6;
+a6[label = "85"];
+a6-> a7;
+a7[label = "47"];
+a7-> a8;
+a8[label = "20"];
+a8-> a9;
+a9[label = "3"];
+a9-> a10;
+a10[label = "4"];
+a10-> a11;
+a11[label = "19"];
+}
+ subgraph clusterB {
+ label="Arbol SPL"; edge [color = blue, splines = ortho];
+node [shape = record, color=gold, height = .1];
+n19[label="<izq> |<f> 19 | <der>"];
+n5[label="<izq> |<f> 5 | <der>"];
+n4[label="<izq> |<f> 4 | <der>"];
+n3[label="<izq> |<f> 3 | <der>"];
+n2[label="<izq> |<f> 2 | <der>"];
+"n3":izq -> "n2":f;
+"n4":izq -> "n3":f;
+"n5":izq -> "n4":f;
+n10[label="<izq> |<f> 10 | <der>"];
+"n5":der -> "n10":f;
+"n19":izq -> "n5":f;
+n20[label="<izq> |<f> 20 | <der>"];
+n30[label="<izq> |<f> 30 | <der>"];
+n47[label="<izq> |<f> 47 | <der>"];
+n63[label="<izq> |<f> 63 | <der>"];
+n85[label="<izq> |<f> 85 | <der>"];
+n96[label="<izq> |<f> 96 | <der>"];
+"n85":der -> "n96":f;
+"n63":der -> "n85":f;
+"n47":der -> "n63":f;
+"n30":der -> "n47":f;
+"n20":der -> "n30":f;
+"n19":der -> "n20":f;
+
+}
+ a0 -> n19 [lhead=clusterA, lhead=clusterB];
+ }
+
